@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-graphite;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-void font-sans text-ink antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-semibold tracking-tight;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: rgba(105, 71, 255, 0.45);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.violet.DEFAULT');
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Slim, dark scrollbars to match the cinematic surface */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0b0d16;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #292b38;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3d4a;
+  }
+
+  img {
+    @apply max-w-full;
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-5 sm:px-8 lg:px-12;
+  }
+
+  .section {
+    @apply border-t border-graphite py-20 sm:py-24 lg:py-28;
+  }
+
+  .label-xs {
+    @apply text-[11px] font-medium uppercase tracking-widest2 text-mist;
+  }
+
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium
+      transition duration-200 disabled:cursor-not-allowed disabled:opacity-45;
+  }
+
+  .btn-primary {
+    @apply btn bg-violet text-white shadow-[0_10px_30px_-12px_rgba(105,71,255,0.9)] hover:bg-violet-soft
+      hover:shadow-[0_14px_38px_-12px_rgba(105,71,255,1)];
+  }
+
+  .btn-outline {
+    @apply btn border border-graphite bg-white/[0.02] text-ink hover:border-violet hover:bg-white/[0.05];
+  }
+
+  .btn-ghost {
+    @apply btn px-4 text-mist hover:text-ink;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2 text-[13px];
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-graphite bg-abyss px-4 py-3 text-sm text-ink
+      placeholder:text-mist/60 focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet/40;
+  }
+
+  .field-label {
+    @apply mb-2 block text-[11px] font-medium uppercase tracking-widest text-mist;
+  }
+
+  .card {
+    @apply rounded-2xl border border-graphite bg-abyss;
+  }
+
+  .icon-btn {
+    @apply inline-flex h-9 w-9 items-center justify-center rounded-full border border-transparent text-ink/90
+      transition hover:border-graphite hover:bg-white/[0.06] hover:text-white lg:h-10 lg:w-10;
+  }
+
+  .link-underline {
+    @apply relative text-mist transition hover:text-ink;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-graphite bg-white/[0.03] px-3 py-1
+      text-xs text-mist;
+  }
+
+  .hairline-grid {
+    @apply grid divide-x divide-graphite border-t border-graphite;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-sonic via-violet-soft to-violet bg-clip-text text-transparent;
+  }
+
+  .glass {
+    background-color: rgba(5, 6, 9, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Waveform bars in the brand-film panel (inline style references this name). */
+@keyframes bar {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

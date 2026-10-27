@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+.env.local
+
+# Base44 placeholder file is intentionally committed (see .env.base44-defaults)
+!.env.base44-defaults

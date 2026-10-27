@@ -1,0 +1,19 @@
+{
+  "name": "sonique-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "SONIQUE store REST API (catalog, orders, accounts, newsletter)",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "migrate": "node src/migrate.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  }
+}
