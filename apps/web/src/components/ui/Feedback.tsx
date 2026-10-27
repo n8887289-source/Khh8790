@@ -25,8 +25,8 @@ export function SectionHeading({
       }`}
     >
       <div className={align === 'center' ? 'text-center sm:mx-auto' : ''}>
-        {eyebrow ? <p className="eyebrow mb-3">{eyebrow}</p> : null}
-        <h2 id={titleId} className="text-[26px] leading-tight sm:text-3xl lg:text-[34px]">
+        {eyebrow ? <p className="eyebrow mb-2">{eyebrow}</p> : null}
+        <h2 id={titleId} className="text-[24px] leading-tight sm:text-[27px] lg:text-[30px]">
           {title}
         </h2>
       </div>
@@ -42,7 +42,7 @@ export function SectionHeading({
 
 export function LoadingGrid({ count = 6 }: { count?: number }) {
   return (
-    <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-3.5 xl:grid-cols-6">
       {Array.from({ length: count }).map((_, index) => (
         <div key={index} className="surface overflow-hidden">
           <div className="aspect-square animate-pulse bg-white/[0.03]" />

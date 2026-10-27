@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { WatchTheFilmButton } from '../PromoFilm';
 import { ArrowRightIcon, CraftIcon, TruckIcon, WaveIcon } from '../../lib/icons';
@@ -10,67 +9,87 @@ const BENEFITS = [
   { icon: TruckIcon, title: 'Free Shipping', copy: 'On orders over $99' },
 ];
 
+/** Violet/blue light behind the product, matching the campaign grade. */
+const AURA =
+  'radial-gradient(circle, rgba(105,71,255,0.52) 0%, rgba(39,107,255,0.26) 44%, rgba(5,6,9,0) 70%)';
+
+/** Feathers the product photograph into the page so no card edge is visible. */
+const PRODUCT_MASK =
+  'radial-gradient(closest-side, #000 64%, rgba(0,0,0,0.62) 84%, transparent 100%)';
+
 export function Hero() {
   return (
-    <section className="relative overflow-hidden" aria-labelledby="hero-title">
-      {/* Lighting: electric blue and violet glows behind the product. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="glow-blue absolute -right-24 -top-24 h-[26rem] w-[26rem] opacity-70 blur-[10px] sm:h-[34rem] sm:w-[34rem]" />
-        <div className="glow-violet absolute -left-32 top-40 h-[22rem] w-[22rem] opacity-60 blur-[10px] sm:h-[30rem] sm:w-[30rem]" />
-        <div className="glow-blue absolute bottom-0 left-1/3 h-[18rem] w-[18rem] opacity-40 blur-[10px]" />
+    <section className="relative overflow-hidden border-b border-line/70" aria-labelledby="hero-title">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(115%_95%_at_76%_26%,rgba(39,107,255,0.18),transparent_62%),radial-gradient(80%_70%_at_8%_0%,rgba(105,71,255,0.14),transparent_64%)]" />
       </div>
 
-      <div className="shell relative pt-10 pb-10 lg:pt-14 lg:pb-14">
-        <div className="relative">
-          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
-            <Reveal className="lg:col-span-5">
-              <p className="eyebrow">Sound lives deeper</p>
-              <h1
-                id="hero-title"
-                className="mt-5 text-[40px] leading-[1.02] font-semibold sm:text-[54px] lg:text-[62px] xl:text-[68px]"
-              >
-                Hear Every <span className="text-brand-soft">Detail</span>
-              </h1>
-              <p className="mt-5 max-w-lg text-lg font-medium text-paper/90 sm:text-xl">
-                Premium audio for a more meaningful you.
-              </p>
-              <p className="mt-4 max-w-lg text-[14.5px] leading-relaxed text-mute">
-                From immersive headphones to powerful speakers, SONIQUE brings your world to life
-                with extraordinary clarity.
-              </p>
+      <div className="shell relative">
+        <div className="grid items-center gap-6 pt-6 sm:gap-8 sm:pt-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-4 lg:pt-10">
+          {/* Copy */}
+          <Reveal className="min-w-0">
+            <p className="eyebrow">Sound lives deeper</p>
+            <h1
+              id="hero-title"
+              className="mt-3 text-[30px] font-semibold leading-[1.04] tracking-[-0.03em] sm:text-[42px] lg:text-[46px] xl:text-[52px]"
+            >
+              <span className="block">Hear Every</span>
+              <span className="block text-brand-soft">Detail</span>
+            </h1>
+            <p className="mt-3 max-w-[30ch] text-[13.5px] font-medium leading-snug text-paper/90 sm:text-[15px]">
+              Premium audio for a more meaningful you.
+            </p>
+            <p className="mt-2 max-w-[46ch] text-[12.5px] leading-relaxed text-mute sm:mt-3 sm:text-[13.5px]">
+              From immersive headphones to powerful speakers, SONIQUE brings your world to life with
+              extraordinary clarity.
+            </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Button to="/shop" size="lg">
-                  Shop All Products
-                  <ArrowRightIcon size={16} />
-                </Button>
-                <WatchTheFilmButton className="py-3.5" />
-              </div>
-            </Reveal>
+            <div className="mt-5 flex flex-wrap items-center gap-2 sm:mt-6">
+              <Button to="/shop" size="sm">
+                Shop All Products
+                <ArrowRightIcon size={14} />
+              </Button>
+              <WatchTheFilmButton className="px-4 py-2 text-[12px]" />
+            </div>
+          </Reveal>
 
-            <Reveal delay={80} className="lg:col-span-7 xl:col-span-6 xl:col-start-6">
-              <div className="relative">
-                <div
-                  aria-hidden="true"
-                  className="glow-blue absolute left-1/2 top-1/2 h-[80%] w-[80%] -translate-x-1/2 -translate-y-1/2 opacity-80"
-                />
-                <img
-                  src="/images/editorial/hero-headphones.jpg"
-                  alt="SONIQUE A1 over-ear headphones on a dark surface, lit by electric blue and violet light"
-                  className="relative w-full rounded-2xl border border-line object-cover shadow-[0_40px_120px_-40px_rgba(39,107,255,0.55)]"
-                  width="1200"
-                  height="800"
-                  loading="eager"
-                  decoding="async"
-                />
-              </div>
-            </Reveal>
-          </div>
+          {/* Product */}
+          <Reveal delay={80} className="relative min-w-0">
+            <div className="relative mx-auto w-full max-w-[540px] lg:max-w-none">
+              <div
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 aspect-square w-[104%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+                style={{ background: AURA }}
+              />
+              <div
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 aspect-square w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 aspect-square w-[66%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand/25"
+              />
+              <img
+                src="/images/editorial/hero-headphones.jpg"
+                alt="SONIQUE A1 over-ear headphones lit by electric blue and violet light"
+                width="1200"
+                height="800"
+                className="relative w-full select-none object-cover"
+                style={{ maskImage: PRODUCT_MASK, WebkitMaskImage: PRODUCT_MASK }}
+                loading="eager"
+                decoding="async"
+              />
+            </div>
 
-          {/* Right-hand editorial panel — reference layout keeps it beside the product. */}
-          <div className="mt-8 hidden xl:absolute xl:right-0 xl:top-1/2 xl:mt-0 xl:block xl:w-[120px] xl:-translate-y-1/2">
-            <div className="border-l border-line pl-5">
-              <p className="text-[13px] font-semibold leading-[1.7] text-paper">
+            {/* Editorial side note: a compact line under the product, a vertical
+                rail beside it once there is room at xl. */}
+            <div className="mt-3 flex items-center gap-3 xl:hidden">
+              <p className="text-[11px] font-semibold leading-none">Sound Shapes A Brighter You</p>
+              <span aria-hidden="true" className="h-3 w-px bg-white/25" />
+              <p className="text-[9px] uppercase tracking-[0.22em] text-mute">Play a brighter life</p>
+            </div>
+            <div className="pointer-events-none absolute -right-1 top-1/2 hidden -translate-y-1/2 xl:block">
+              <p className="text-[11px] font-semibold leading-[1.9]">
                 Sound
                 <br />
                 Shapes
@@ -79,47 +98,33 @@ export function Hero() {
                 <br />
                 You
               </p>
-              <div className="my-5 h-px w-10 bg-white/25" />
-              <p className="text-[9.5px] uppercase leading-relaxed tracking-[0.2em] text-mute">
+              <div aria-hidden="true" className="my-3 h-px w-8 bg-white/25" />
+              <p className="text-[8.5px] uppercase leading-relaxed tracking-[0.24em] text-mute">
                 Play a brighter life
               </p>
             </div>
-          </div>
-        </div>
-
-        {/* Compact version of the side panel for smaller screens. */}
-        <div className="mt-8 flex items-center gap-5 border-t border-line pt-6 xl:hidden">
-          <p className="text-[15px] font-semibold leading-snug">
-            Sound Shapes A Brighter You
-          </p>
-          <div className="h-8 w-px bg-white/20" aria-hidden="true" />
-          <p className="text-[9.5px] uppercase tracking-[0.2em] text-mute">Play a brighter life</p>
+          </Reveal>
         </div>
 
         {/* Benefits */}
-        <div className="mt-8 grid gap-0 border-t border-line sm:grid-cols-3">
+        <ul className="mt-5 grid grid-cols-3 gap-2 border-t border-line py-4 sm:mt-6 sm:gap-6 sm:py-5">
           {BENEFITS.map((benefit, index) => (
-            <div
+            <li
               key={benefit.title}
-              className={`flex items-start gap-3 py-5 sm:px-6 sm:first:pl-0 sm:last:pr-0 ${
-                index > 0 ? 'border-t border-line sm:border-l sm:border-t-0' : ''
-              }`}
+              className={`flex items-start gap-2 sm:gap-3 ${index > 0 ? 'border-l border-line pl-2 sm:pl-5' : ''}`}
             >
-              <benefit.icon size={20} className="mt-0.5 shrink-0 text-brand-soft" />
-              <div>
-                <p className="text-[13.5px] font-semibold">{benefit.title}</p>
-                <p className="text-[12.5px] text-mute">{benefit.copy}</p>
+              <benefit.icon size={16} className="mt-0.5 shrink-0 text-brand-soft" />
+              <div className="min-w-0">
+                <p className="text-[11.5px] font-semibold leading-tight sm:text-[12.5px]">
+                  {benefit.title}
+                </p>
+                <p className="text-[10.5px] leading-tight text-mute sm:text-[11.5px]">
+                  {benefit.copy}
+                </p>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
-
-        <p className="mt-4 text-[11px] text-mute/70">
-          <Link to="/shop" className="link-underline">
-            Browse the full collection
-          </Link>{' '}
-          — 16 products across headphones, earbuds, speakers, amplifiers and accessories.
-        </p>
+        </ul>
       </div>
     </section>
   );

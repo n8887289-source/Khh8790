@@ -18,22 +18,25 @@ export function SpeakerPromo() {
             className="glow-blue pointer-events-none absolute -right-20 -top-24 h-96 w-96 opacity-70"
           />
           <div className="relative grid gap-0 lg:grid-cols-[1.05fr_1fr]">
-            <div className="order-2 p-6 sm:p-9 lg:order-1">
+            <div className="order-2 p-5 sm:p-7 lg:order-1">
               <p className="eyebrow">Portable sound</p>
-              <h2 id="speaker-promo-title" className="mt-4 text-[30px] leading-[1.05] sm:text-[42px]">
+              <h2
+                id="speaker-promo-title"
+                className="mt-3 text-[26px] leading-[1.05] sm:text-[36px]"
+              >
                 Take Music
                 <br />
                 Further
               </h2>
-              <p className="mt-4 text-[15px] text-mute">Rugged. Portable. Unstoppable.</p>
-              <div className="mt-7">
-                <Button to="/shop?category=speakers">
+              <p className="mt-3 text-[13.5px] text-mute">Rugged. Portable. Unstoppable.</p>
+              <div className="mt-5">
+                <Button to="/shop?category=speakers" size="sm">
                   Shop Speakers
-                  <ArrowRightIcon size={16} />
+                  <ArrowRightIcon size={14} />
                 </Button>
               </div>
 
-              <dl className="mt-9 grid grid-cols-3 gap-4 border-t border-line pt-6">
+              <dl className="mt-7 grid grid-cols-3 gap-3 border-t border-line pt-5">
                 {FEATURES.map((feature) => (
                   <div key={feature.primary}>
                     <feature.icon size={20} className="text-brand-soft" />
@@ -48,7 +51,7 @@ export function SpeakerPromo() {
               <img
                 src="/images/editorial/speaker-promo.jpg"
                 alt="Close-up of a SONIQUE portable speaker grille under blue rim lighting"
-                className="h-[240px] w-full object-cover sm:h-[300px] lg:h-full lg:min-h-[420px]"
+                className="h-[200px] w-full object-cover sm:h-[260px] lg:h-full lg:min-h-[380px]"
                 loading="lazy"
                 decoding="async"
               />

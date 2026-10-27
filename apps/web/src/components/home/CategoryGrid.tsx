@@ -14,7 +14,7 @@ export function CategoryGrid() {
   ).filter((category): category is NonNullable<typeof category> => Boolean(category));
 
   return (
-    <section className="shell py-16 sm:py-20" aria-labelledby="categories-title">
+    <section className="shell py-10 sm:py-14" aria-labelledby="categories-title">
       <SectionHeading
         eyebrow="Explore"
         title="Shop by Category"
@@ -23,7 +23,7 @@ export function CategoryGrid() {
         actionTo="/shop"
       />
 
-      <div className="mt-8">
+      <div className="mt-5">
         {error ? (
           <ErrorState description="We could not load the categories just now. Please refresh the page to try again." />
         ) : shown.length === 0 ? (
@@ -37,7 +37,7 @@ export function CategoryGrid() {
                   className="group relative block overflow-hidden rounded-xl border border-line bg-navy"
                   aria-label={`Shop ${category.name} — ${category.tagline}`}
                 >
-                  <div className="aspect-[4/5] w-full overflow-hidden">
+                  <div className="aspect-[3/4] w-full overflow-hidden sm:aspect-[4/5]">
                     <img
                       src={category.image}
                       alt={`${category.name} — ${category.tagline}`}
@@ -47,16 +47,20 @@ export function CategoryGrid() {
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-4 sm:p-5">
+                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-3.5 sm:p-4">
                     <div className="min-w-0">
-                      <h3 className="text-base font-semibold sm:text-lg">{category.name}</h3>
-                      <p className="mt-1 text-[12px] text-mute sm:text-[13px]">{category.tagline}</p>
+                      <h3 className="text-[15px] font-semibold leading-tight sm:text-[17px]">
+                        {category.name}
+                      </h3>
+                      <p className="mt-0.5 text-[11.5px] leading-snug text-mute">
+                        {category.tagline}
+                      </p>
                     </div>
                     <span
                       aria-hidden="true"
-                      className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/20 bg-ink/60 text-paper backdrop-blur transition group-hover:border-brand group-hover:bg-brand"
+                      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-ink/60 text-paper backdrop-blur transition group-hover:border-brand group-hover:bg-brand"
                     >
-                      <ArrowUpRightIcon size={16} />
+                      <ArrowUpRightIcon size={14} />
                     </span>
                   </div>
                 </Link>

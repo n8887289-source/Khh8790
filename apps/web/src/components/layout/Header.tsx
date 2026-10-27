@@ -70,7 +70,7 @@ export function Header() {
       <header className="sticky top-0 z-[70]">
         {/* Announcement bar */}
         <div className="border-b border-line bg-ink">
-          <div className="shell flex h-9 items-center justify-between gap-4 text-[10.5px] uppercase tracking-[0.18em] text-mute">
+          <div className="shell flex h-8 items-center justify-between gap-4 text-[10px] uppercase tracking-[0.18em] text-mute">
             <div className="flex items-center gap-3 truncate">
               <span className="truncate">Free shipping on orders over $99</span>
               <span aria-hidden="true" className="hidden text-line md:inline">
@@ -102,7 +102,7 @@ export function Header() {
           )}
         >
           <div className="shell">
-            <div className="flex h-16 items-center justify-between gap-3 lg:h-[74px]">
+            <div className="flex h-[60px] items-center justify-between gap-3 lg:h-[66px]">
               <div className="flex items-center gap-2 lg:hidden">
                 <button
                   type="button"

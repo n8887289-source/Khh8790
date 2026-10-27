@@ -87,33 +87,33 @@ export function ProductCard({ product, onAdded, eager }: Props) {
         ) : null}
       </div>
 
-      <div className="flex flex-1 flex-col gap-2 p-3.5">
+      <div className="flex flex-1 flex-col gap-1.5 p-3">
         <div>
-          <h3 className="text-[13.5px] font-semibold leading-snug">
+          <h3 className="text-[12.5px] font-semibold leading-snug">
             <Link to={`/product/${product.slug}`} className="link-underline">
               {product.name}
             </Link>
           </h3>
-          <p className="mt-0.5 text-[11.5px] text-mute">{product.tagline}</p>
+          <p className="mt-0.5 text-[11px] leading-snug text-mute">{product.tagline}</p>
         </div>
 
-        <div className="flex items-center gap-1.5">
-          <StarRating rating={product.rating} />
-          <span className="text-[11px] font-medium tabular-nums text-paper/80">
+        <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+          <StarRating rating={product.rating} size={12} />
+          <span className="text-[10.5px] font-medium tabular-nums text-paper/80">
             {product.rating.toFixed(1)}
           </span>
-          <span className="text-[10.5px] text-mute">({product.reviewCount} sample)</span>
+          <span className="text-[10px] text-mute">({product.reviewCount})</span>
         </div>
 
         <div className="mt-auto flex items-center justify-between gap-2 pt-2">
-          <span className="text-[15px] font-semibold tabular-nums">{formatPrice(product.price)}</span>
+          <span className="text-[14px] font-semibold tabular-nums">{formatPrice(product.price)}</span>
           <button
             type="button"
             onClick={addToCart}
             disabled={!product.inStock}
             aria-label={`Add ${product.name} to cart`}
             className={classNames(
-              'relative inline-flex h-9 w-9 items-center justify-center rounded-full border transition',
+              'relative inline-flex h-8 w-8 items-center justify-center rounded-full border transition',
               product.inStock
                 ? 'border-line bg-white/[0.03] text-paper hover:border-brand hover:bg-brand hover:text-white'
                 : 'cursor-not-allowed border-line text-mute opacity-50',

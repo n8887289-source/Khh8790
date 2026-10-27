@@ -41,22 +41,22 @@ export function Newsletter() {
   };
 
   return (
-    <section className="shell py-16 sm:py-20" aria-labelledby="newsletter-title">
-      <div className="surface relative overflow-hidden px-6 py-10 sm:px-12 sm:py-14">
+    <section className="shell pb-12 pt-2 sm:pb-16" aria-labelledby="newsletter-title">
+      <div className="surface relative overflow-hidden px-5 py-8 sm:px-10 sm:py-11">
         <div
           aria-hidden="true"
           className="glow-violet pointer-events-none absolute -right-16 -top-24 h-80 w-80 opacity-60"
         />
         <div className="relative mx-auto max-w-xl text-center">
           <p className="eyebrow">Newsletter</p>
-          <h2 id="newsletter-title" className="mt-4 text-[28px] sm:text-4xl">
+          <h2 id="newsletter-title" className="mt-3 text-[24px] sm:text-[30px]">
             Be First in Line
           </h2>
-          <p className="mt-4 text-[14.5px] text-mute">
+          <p className="mt-3 text-[13.5px] text-mute">
             Get exclusive offers, new product drops and audio inspiration.
           </p>
 
-          <form onSubmit={submit} className="mt-7" noValidate>
+          <form onSubmit={submit} className="mt-5" noValidate>
             <label htmlFor="newsletter-email" className="sr-only">
               Email address
             </label>
