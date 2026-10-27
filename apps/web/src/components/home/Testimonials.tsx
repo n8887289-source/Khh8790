@@ -10,24 +10,23 @@ import { initialsOf } from '../../lib/format';
 const TESTIMONIALS = [
   {
     name: 'Amara O.',
-    role: 'Sound engineer, sample profile',
+    role: 'Headphones owner, sample profile',
     rating: 5,
     quote:
-      'The A1 Studio is the first headphone I trust for a final check. The low end stays honest no matter how loud I push it.',
+      'Absolutely incredible sound quality. SONIQUE headphones have changed how I experience music.',
   },
   {
     name: 'Daniel R.',
-    role: 'Long-haul commuter, sample profile',
+    role: 'Earbuds owner, sample profile',
     rating: 5,
     quote:
-      'Buds Pro disappeared into my routine. Two flights, one charge, and the cabin noise simply was not there.',
+      'The best earbuds I have ever owned. Crystal clear, comfortable, and the battery life is amazing.',
   },
   {
     name: 'Priya M.',
-    role: 'Weekend hiker, sample profile',
+    role: 'Speaker owner, sample profile',
     rating: 5,
-    quote:
-      'The Pulse came out in the rain, on the rocks, in the sand — and it still sounds like it did on day one.',
+    quote: 'Superb build quality and rich, detailed sound. SONIQUE lives up to the hype.',
   },
 ];
 

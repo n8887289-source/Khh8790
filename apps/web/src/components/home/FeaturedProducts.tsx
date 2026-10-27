@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { api } from '../../lib/api';
 import { useAsync } from '../../hooks/useAsync';
 import { ProductCard } from '../ProductCard';
@@ -7,9 +8,11 @@ import { Reveal } from '../ui/Reveal';
 import { cn } from '../../lib/cn';
 
 const TABS = [
-  /** Catalogue order (sort_order): the six products the campaign leads with. */
-  { id: 'featured', label: 'Featured', params: { sort: 'featured' } },
-  { id: 'bestseller', label: 'Best Sellers', params: { tab: 'bestseller', sort: 'rating' } },
+  /**
+   * Merchandising order (sort_order): the six products the campaign leads with,
+   * which is also the "Best Sellers" shelf in the reference layout.
+   */
+  { id: 'featured', label: 'Best Sellers', params: { sort: 'featured' } },
   { id: 'new', label: 'New Arrivals', params: { tab: 'new', sort: 'rating' } },
   { id: 'premium', label: 'Premium', params: { tab: 'premium', sort: 'rating' } },
 ] as const;
@@ -33,24 +36,32 @@ export function FeaturedProducts() {
         actionTo="/shop"
       />
 
-      <div className="mt-5 flex flex-wrap items-center gap-2" role="tablist" aria-label="Product collections">
-        {TABS.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            role="tab"
-            aria-selected={tab === item.id}
-            onClick={() => setTab(item.id)}
-            className={cn(
-              'rounded-full border px-3.5 py-1.5 text-[12px] font-medium transition',
-              tab === item.id
-                ? 'border-brand bg-brand/15 text-paper'
-                : 'border-line text-mute hover:border-white/25 hover:text-paper',
-            )}
-          >
-            {item.label}
-          </button>
-        ))}
+      <div className="mt-5 flex flex-wrap items-center gap-2">
+        <div role="tablist" aria-label="Product collections" className="flex flex-wrap items-center gap-2">
+          {TABS.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              role="tab"
+              aria-selected={tab === item.id}
+              onClick={() => setTab(item.id)}
+              className={cn(
+                'rounded-full border px-3.5 py-1.5 text-[12px] font-medium transition',
+                tab === item.id
+                  ? 'border-brand bg-brand/15 text-paper'
+                  : 'border-line text-mute hover:border-white/25 hover:text-paper',
+              )}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+        <Link
+          to="/shop"
+          className="rounded-full border border-line px-3.5 py-1.5 text-[12px] font-medium text-mute transition hover:border-white/25 hover:text-paper"
+        >
+          View All
+        </Link>
       </div>
 
       <div className="mt-5">

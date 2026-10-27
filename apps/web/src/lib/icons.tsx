@@ -213,6 +213,48 @@ export const SpinnerIcon = ({ size = 18, ...props }: IconProps) => (
   </svg>
 );
 
+export const LeafIcon = (props: IconProps) => (
+  <Base {...props}>
+    <path d="M20 4C10 4 4.5 8.6 4.5 15.2A4.8 4.8 0 0 0 9.3 20C15.9 20 20 14.5 20 4Z" />
+    <path d="M4.5 20c1.4-4.6 4.6-8.2 9.2-10.4" />
+  </Base>
+);
+
+export const InstagramIcon = (props: IconProps) => (
+  <Base {...props}>
+    <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <path d="M16.8 7.2h.01" />
+  </Base>
+);
+
+export const YouTubeIcon = (props: IconProps) => (
+  <Base {...props}>
+    <rect x="2.5" y="5.5" width="19" height="13" rx="4" />
+    <path d="m10.5 9.5 5 2.5-5 2.5z" fill="currentColor" stroke="none" />
+  </Base>
+);
+
+export const TikTokIcon = (props: IconProps) => (
+  <Base {...props}>
+    <path d="M14.5 3v10.6a3.4 3.4 0 1 1-3-3.4" />
+    <path d="M14.5 5.2A4 4 0 0 0 18.8 8" />
+  </Base>
+);
+
+export const XIcon = (props: IconProps) => (
+  <Base {...props}>
+    <path d="M4 4l16 16" />
+    <path d="M20 4 4 20" />
+  </Base>
+);
+
+export const FacebookIcon = (props: IconProps) => (
+  <Base {...props}>
+    <path d="M14.5 8.5V6.8c0-.8.4-1.3 1.3-1.3h1.7V2.6h-2.6c-2.2 0-3.6 1.5-3.6 3.9v2H9v3h2.3V21h3.2v-9.5h2.6l.4-3z" />
+  </Base>
+);
+
 export const InfoIcon = (props: IconProps) => (
   <Base {...props}>
     <circle cx="12" cy="12" r="9" />

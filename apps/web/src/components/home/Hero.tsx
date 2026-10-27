@@ -31,7 +31,7 @@ export function Hero() {
             <p className="eyebrow">Sound lives deeper</p>
             <h1
               id="hero-title"
-              className="mt-3 text-[30px] font-semibold leading-[1.04] tracking-[-0.03em] sm:text-[42px] lg:text-[46px] xl:text-[52px]"
+              className="mt-3 text-[32px] font-semibold leading-[1.02] tracking-[-0.035em] sm:text-[46px] lg:text-[54px] xl:text-[62px]"
             >
               <span className="block">Hear Every</span>
               <span className="block text-brand-soft">Detail</span>
