@@ -1,0 +1,15 @@
+node_modules/
+dist/
+build/
+.vite/
+*.log
+npm-debug.log*
+
+# local env files (Base44 secrets are delivered at /run/base44/app.env, outside the repo)
+.env
+.env.local
+.env.*.local
+!.env.base44-defaults
+
+.DS_Store
+coverage/

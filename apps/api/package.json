@@ -1,0 +1,20 @@
+{
+  "name": "@sonique/api",
+  "private": true,
+  "version": "1.0.0",
+  "description": "SONIQUE store API — catalog, cart checkout, orders and newsletter subscribers",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "migrate": "node db/migrate.js",
+    "seed": "node db/seed.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "pg": "^8.13.1"
+  }
+}
