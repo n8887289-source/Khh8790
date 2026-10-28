@@ -82,6 +82,26 @@ If you add or rename an asset, update `apps/api/db/seed.js` and re-run the setup
 `images` arrays live in the database, seeded from that file. Product cards and the cart use
 `images[0]`; the product page gallery uses the whole array.
 
+## Hero film (scroll-scrubbed video)
+
+The home hero is a pinned, scroll-driven film, not an autoplay background loop:
+
+- `apps/web/public/videos/` holds `sonique-hero-1280.mp4` (desktop), `sonique-hero-854.mp4`
+  (mobile, ~1/3 of the bytes) and `sonique-hero-poster.jpg` (first frame, shown until the film can
+  be scrubbed). The still fallback is `public/images/editorial/hero-headphones.jpg`.
+- `apps/web/src/hooks/useScrollScrubbedVideo.ts` owns the interaction: scroll sets a *target* time,
+  `requestAnimationFrame` eases `currentTime` toward it, one seek in flight at a time, small deltas
+  dropped, and the loop stops when it settles. The video is never played — do not add `play()`,
+  `autoplay` or `loop`; scrolling scrubs `currentTime` in both directions.
+- The scroll distance lives in `Hero.tsx` (`h-[240svh] sm:h-[300svh]`); the section is pulled up
+  behind the sticky header so the pinned 100svh stage is complete on first paint.
+- Scrubbing quality is an encoding property as much as a code one. Re-encode any replacement master
+  with a short GOP and faststart, e.g.
+  `ffmpeg -i master.mov -an -c:v libx264 -pix_fmt yuv420p -crf 22 -preset slow -g 6 -keyint_min 1 -sc_threshold 0 -movflags +faststart out.mp4`.
+  A file with one keyframe per second seeks badly no matter what the JS does.
+- `prefers-reduced-motion` renders the still photograph with no pinning and no video request; a media
+  error falls back to the same photograph and collapses the section to one viewport.
+
 ## Data model and honest boundaries
 
 - `products`, `categories` — the demo catalogue (16 products, 5 categories).
