@@ -1,6 +1,7 @@
 import express from 'express';
 import { pool } from './db.js';
 import { contactRouter } from './routes/contact.js';
+import { adminRouter } from './routes/admin.js';
 import { newsletterRouter } from './routes/newsletter.js';
 import { ordersRouter } from './routes/orders.js';
 import { productsRouter } from './routes/products.js';
@@ -24,6 +25,7 @@ app.use('/api', productsRouter);
 app.use('/api', ordersRouter);
 app.use('/api', newsletterRouter);
 app.use('/api', contactRouter);
+app.use('/api', adminRouter);
 
 app.use('/api', (_req, res) => {
   res.status(404).json({ error: 'Unknown API endpoint' });

@@ -2,5 +2,12 @@
   "previewPort": 3000,
   "healthPath": "/",
   "startCommand": "docker compose -f docker-compose.base44.yml up -d --build",
-  "secrets": []
+  "secrets": [
+    {
+      "name": "SESSION_SECRET",
+      "description": "Signs the administrator session cookie for /admin. A development placeholder is generated so the store boots; replace it with any long random value you keep private before real use.",
+      "requiredAtBoot": true,
+      "generatedForDevelopment": true
+    }
+  ]
 }

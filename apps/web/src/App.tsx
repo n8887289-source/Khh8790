@@ -10,6 +10,7 @@ import { CheckoutPage } from './pages/CheckoutPage';
 import { OrderPage } from './pages/OrderPage';
 import { FavoritesPage } from './pages/FavoritesPage';
 import { AccountPage } from './pages/AccountPage';
+import { AdminPage } from './pages/AdminPage';
 import { InfoPage } from './pages/InfoPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/order/:orderNumber" element={<OrderPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/account" element={<AccountPage />} />
+          <Route path="/admin" element={<AdminPage />} />
 
           {/* Editorial, support and legal pages all render from content/pages.ts */}
           <Route path="/explore" element={<InfoPage />} />

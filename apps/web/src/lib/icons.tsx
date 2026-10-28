@@ -262,3 +262,11 @@ export const InfoIcon = (props: IconProps) => (
     <path d="M12 8h.01" />
   </Base>
 );
+
+export const LockIcon = (props: IconProps) => (
+  <Base {...props}>
+    <rect x="4.5" y="10" width="15" height="10" rx="2.4" />
+    <path d="M8 10V7.6a4 4 0 0 1 8 0V10" />
+    <path d="M12 14v2.4" />
+  </Base>
+);

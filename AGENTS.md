@@ -35,9 +35,30 @@ lockfile on start and run the framework's watch command, so edits appear without
   `docker compose -f docker-compose.base44.yml run --rm db-setup`
   (it is idempotent: migrations use `IF NOT EXISTS`, seeds upsert by slug).
 
-No external secrets are required. `DATABASE_URL` points at the local compose database. The
-platform-managed `/run/base44/app.env` is wired into the API as the last `env_file` entry so a
-secret added later reaches it without editing compose; nothing needs it today.
+`DATABASE_URL` points at the local compose database. One secret is used: `SESSION_SECRET` (at least
+16 characters) signs the administrator session cookie for `/admin`. The platform-managed
+`/run/base44/app.env` is wired into the API as the last `env_file` entry, and a development
+placeholder for `SESSION_SECRET` is generated so the store boots; replace it with your own random
+value if you deploy this somewhere real. Without it the admin API answers 503 and the storefront is
+unaffected.
+
+## Store admin (`/admin`)
+
+- First visit to `/admin` on an empty `admin_users` table shows a one-time "create the administrator
+  account" form. That account then owns the catalogue, orders and newsletter list; the setup
+  endpoint refuses once an account exists. Everyone else only ever sees the sign-in form.
+- Sign-in sets an HttpOnly, SameSite=Strict cookie (`sonique_admin`) holding an HMAC-signed token
+  with a 12-hour expiry. Passwords are stored as scrypt hashes in `admin_users`.
+- Every `/api/admin/*` route except `session`, `setup`, `login` and `logout` goes through
+  `requireAdmin` in `apps/api/src/lib/adminAuth.js`. Moving or hiding UI never weakens it — keep it
+  that way; do not add an admin route outside that guard.
+- Admin API: product CRUD (`GET/POST /api/admin/products`, `PATCH/DELETE /api/admin/products/:id`),
+  orders plus status changes (`GET /api/admin/orders`, `PATCH /api/admin/orders/:orderNumber`),
+  `GET /api/admin/subscribers`, `GET /api/admin/messages`.
+- Order status is visible to customers on `/order/:orderNumber`; allowed values are
+  `demo_unpaid`, `processing`, `shipped`, `delivered`, `cancelled`.
+- To reset admin access (forgotten password), delete the row — the next visit offers setup again:
+  `docker compose -f docker-compose.base44.yml exec -T db psql -U sonique -d sonique -c "DELETE FROM admin_users;"`
 
 ## Sandbox-specific configuration
 
@@ -74,8 +95,9 @@ Order totals are always recalculated server-side from catalogue prices (`quoteCa
 cannot influence what an order costs. Order lookup requires the order number **and** the matching
 email address.
 
-Cart and favourites are client-side only (`localStorage`), because no authentication service is
-configured — there is no sign-in, and the UI states this instead of pretending otherwise.
+Cart and favourites are client-side only (`localStorage`): there is no customer sign-in, only the
+single administrator account described above, and the UI states this instead of pretending
+otherwise.
 
 Ratings, review counts and testimonials are **sample demonstration content**, labelled as such in
 the UI. Keep that labelling when editing copy.
@@ -95,5 +117,8 @@ render, category/collection filters change the result count, add-to-cart updates
 cart totals equal `subtotal + shipping` (free at $99+, otherwise $9.95), and no element causes
 horizontal overflow at 320–1440px.
 
-Note when testing writes: creating an order, a newsletter sign-up or a contact message leaves a
-real row behind — remove it afterwards by the exact key the test created.
+Note when testing writes: creating an order, a newsletter sign-up, a contact message, a product or an
+admin account leaves a real row behind — remove it afterwards by the exact key the test created.
+Admin checks: `curl -s localhost:3000/api/admin/session` reports `configured`/`hasAccount`, and
+`curl -o /dev/null -w '%{http_code}' localhost:3000/api/admin/products` must answer 401 without a
+session cookie.

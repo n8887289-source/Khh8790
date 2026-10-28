@@ -80,6 +80,15 @@ CREATE TABLE IF NOT EXISTS newsletter_subscribers (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Store administrators. Passwords are stored as scrypt hashes; the browser only
+-- ever holds a signed, HttpOnly session cookie.
+CREATE TABLE IF NOT EXISTS admin_users (
+  id            SERIAL PRIMARY KEY,
+  email         TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  created_at    TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
 -- Messages left through the contact page. This store has no mail provider
 -- configured, so messages are stored here for an operator to read rather than
 -- being emailed on submit.

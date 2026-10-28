@@ -147,6 +147,9 @@ export function Footer() {
             <Link to="/cookies" className="transition hover:text-paper">
               Cookie Preferences
             </Link>
+            <Link to="/admin" className="transition hover:text-paper">
+              Store Admin
+            </Link>
           </nav>
         </div>
       </div>
