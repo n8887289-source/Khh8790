@@ -1,0 +1,139 @@
+# Base44 development environment for the SONIQUE storefront.
+#
+# Everything runs from the cloned source: app services use plain runtime images
+# with the repository bind-mounted and dependencies installed on start, so edits
+# appear without rebuilding images. Only infrastructure (Postgres) uses a
+# prebuilt image.
+#
+#   docker compose -f docker-compose.base44.yml up -d --build
+#
+# Ports: the storefront is the single public entry point on host port 3000.
+# Vite proxies /api to the API service, so the browser only ever talks to one
+# origin (no CORS and same-origin cookies).
+
+name: sonique
+
+services:
+  db:
+    image: postgres:16
+    restart: on-failure
+    environment:
+      POSTGRES_USER: sonique
+      POSTGRES_PASSWORD: sonique_local_dev
+      POSTGRES_DB: sonique
+    volumes:
+      - sonique-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U sonique -d sonique']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    labels:
+      base44.project: 'SONIQUE database'
+      base44.kind: 'infra'
+
+  # One-shot: applies the schema and refreshes the demo catalogue, then exits.
+  db-setup:
+    image: node:22
+    working_dir: /app/apps/api
+    volumes:
+      - ./:/app
+    environment:
+      DATABASE_URL: postgres://sonique:sonique_local_dev@db:5432/sonique
+      CI: 'true'
+    depends_on:
+      db:
+        condition: service_healthy
+    command:
+      [
+        'sh',
+        '-ec',
+        'npm install --no-audit --no-fund --prefer-offline && node db/migrate.js && node db/seed.js',
+      ]
+    labels:
+      base44.project: 'SONIQUE catalogue setup'
+      base44.kind: 'worker'
+
+  api:
+    image: node:22
+    working_dir: /app/apps/api
+    restart: on-failure
+    volumes:
+      - ./:/app
+    env_file:
+      # Platform-managed secrets live outside the repo. No secret is required to
+      # boot this store today; the file is wired in so any value added later
+      # reaches the API without editing this file.
+      - path: /run/base44/app.env
+        required: false
+    environment:
+      DATABASE_URL: postgres://sonique:sonique_local_dev@db:5432/sonique
+      PORT: '8000'
+      NODE_ENV: development
+      CI: 'true'
+      BASE44_PREVIEW_MODE: ${BASE44_PREVIEW_MODE:-}
+    depends_on:
+      db:
+        condition: service_healthy
+      db-setup:
+        condition: service_completed_successfully
+    command:
+      ['sh', '-ec', 'npm install --no-audit --no-fund --prefer-offline && exec npm run dev']
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:8000/api/health').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 40s
+    labels:
+      base44.project: 'SONIQUE store API'
+      base44.kind: 'api'
+
+  web:
+    image: node:22
+    working_dir: /app/apps/web
+    restart: on-failure
+    volumes:
+      - ./:/app
+    environment:
+      API_URL: http://api:8000
+      NODE_ENV: development
+      CI: 'true'
+      BASE44_PREVIEW_MODE: ${BASE44_PREVIEW_MODE:-}
+      # Vite >= 6.1 appends this to server.allowedHosts so the preview proxy host
+      # is accepted while it stays undefined outside the sandbox.
+      __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS: ${__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS:-}
+      BASE44_SANDBOX_HOST_DOMAIN: ${BASE44_SANDBOX_HOST_DOMAIN:-}
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - '3000:5173'
+    command:
+      ['sh', '-ec', 'npm install --no-audit --no-fund --prefer-offline && exec npm run dev']
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:5173/').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 60s
+    labels:
+      base44.project: 'SONIQUE storefront'
+      base44.kind: 'web'
+      base44.port: '3000'
+
+volumes:
+  sonique-db-data:
